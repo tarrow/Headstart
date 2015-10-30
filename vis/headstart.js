@@ -105,6 +105,8 @@ HeadstartFSM = function(host, path, tag, files, options) {
    this.use_area_uri = initVar(options.use_area_uri, false);
    
    this.input_format = initVar(options.input_format, "csv");
+   
+   this.show_editmode = initVar(options.show_editmode, false);
   
   // contains bubbles objects for the timline view
   // elements get added to bubbles by calling registerBubbles()
@@ -409,6 +411,10 @@ HeadstartFSM.prototype = {
             if (hs.force_papers.alpha() <= 0 && hs.force_areas.alpha() <= 0) {
               papers.forced();
               window.clearInterval(checkPapers);
+              
+              if(headstart.show_editmode) {
+                popup.drawEditLink();
+              }
             }
           }
         }
@@ -701,6 +707,27 @@ HeadstartFSM.prototype = {
     
     hs.checkForcePapers();
     
+  },
+  
+  stopClickListeners: function() {
+      
+    $("rect").on("click", null);
+    $("#chart").on("click", null);
+    d3.selectAll("circle").on("click", null);
+    d3.selectAll(".paper_holder").on("click", null);
+    d3.selectAll("#list_title").on( "click", null);
+      
+  },
+  
+  ontoeditmode: function(event, from, to, file) {
+    
+    //stop a lot of click listeners that would distract in edit mode
+    this.stopClickListeners();
+    
+    d3.selectAll("#list_title")
+            .attr("contentEditable", "true");
+    
+    
   }
   
 }
@@ -715,7 +742,8 @@ StateMachine.create({
   events: [
     { name: "start",      from: "none",     to: "normal" },
     { name: "totimeline", from: ["normal", "switchfiles"],   to: "timeline" },
-    { name: "tofile", from: ["normal", "switchfiles", "timeline"], to: "switchfiles"}
+    { name: "tofile", from: ["normal", "switchfiles", "timeline"], to: "switchfiles"},
+    { name: "toeditmode", from: ["normal", "switchfiles"],   to: "editmode" }
   ]
 
 });

@@ -668,6 +668,9 @@ BubblesFSM.prototype = {
     
     if (headstart.show_dropdown)  
         popup.drawDropdown();
+    
+    if (headstart.show_editmode)  
+        popup.drawEditLink();
 
 
     d3.selectAll(".paper")

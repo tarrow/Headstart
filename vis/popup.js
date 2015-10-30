@@ -30,7 +30,7 @@ var popup = StateMachine.create({
             
             if(headstart.show_dropdown) {
               this.drawDropdown();
-            }
+            }          
             
             this.initClickListenersForNav();
             
@@ -77,6 +77,10 @@ popup.initClickListenersForNav = function() {
       headstart.totimeline();
     }
   });
+  
+  d3.select("#editmode").on("click", function () {
+      headstart.toeditmode();
+  })
 }
 
 // The paper frame is the main popup element.
@@ -141,6 +145,13 @@ popup.drawTimeLineLink = function() {
   $("#info").append(link);
 
   return $("#timelineview");
+}
+
+popup.drawEditLink = function() {
+  var link = ' <span id="editmode"><a href="#" border=0><img src="vis/images/edit-mode-off.png" id="editomode-img" /></a></span>';
+  $("#info").append(link);
+
+  return $("#editmode");
 }
 
 popup.drawDropdown = function() {
