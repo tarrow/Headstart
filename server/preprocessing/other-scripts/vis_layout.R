@@ -65,6 +65,12 @@ create_tdm_matrix <- function(metadata, text, sparsity=1, lang="english") {
 
 
 
+BigramTokenizer <- function(x) unlist(lapply(ngrams(words(x), 2), paste, collapse = " "), use.names = FALSE)
+
+TrigramTokenizer <- function(x) unlist(lapply(ngrams(words(x), 3), paste, collapse = " "), use.names = FALSE)
+
+FourgramTokenizer <- function(x) unlist(lapply(ngrams(words(x), 4), paste, collapse = " "), use.names = FALSE)
+
 replace_keywords_if_empty <- function(corpus, metadata) {
   
   remove_alone_numbers <- content_transformer(function(x)
@@ -72,17 +78,63 @@ replace_keywords_if_empty <- function(corpus, metadata) {
   
   corpus <- tm_map(corpus, remove_alone_numbers)
   
+  dtm2 = DocumentTermMatrix(corpus, control = list(tokenize = BigramTokenizer))
+  #dtm3 = DocumentTermMatrix(corpus, control = list(tokenize = TrigramTokenizer))
+  #dtm4 = DocumentTermMatrix(corpus, control = list(tokenize = FourgramTokenizer))
+  
   dtm = DocumentTermMatrix(corpus)
   
   i = 1
+  threshold = 10
   
   for(i in 1:nrow(metadata)) {
     if (metadata$subject[i] == "" || metadata$subject[i] == "n/a") {
-      freq_terms = as.matrix(dtm[i,])
-      freq_terms_sorted = sort(colSums(freq_terms), decreasing=TRUE)
-      top_terms = head(freq_terms_sorted, 10)
       
-      metadata$subject[i] = paste0(names(top_terms), collapse=";")
+      all_top_terms = c()
+      
+      #freq_terms4 = as.matrix(dtm4[i,])
+      #freq_terms_sorted4 = sort(colSums(freq_terms4), decreasing=TRUE)
+      #top_terms4 = head(freq_terms_sorted4, threshold)
+      #top_terms4_threshold = top_terms4[top_terms4>=2]
+      
+      #all_top_terms = append(all_top_terms, top_terms4_threshold)
+      
+      #if (length(all_top_terms) <= threshold) {
+      #  freq_terms3 = as.matrix(dtm3[i,])
+      #  freq_terms_sorted3 = sort(colSums(freq_terms3), decreasing=TRUE)
+      #  top_terms3 = head(freq_terms_sorted3, threshold - length(all_top_terms))
+        
+      #  top_terms3_threshold = top_terms3[top_terms3>=3]
+        
+      #  all_top_terms = append(all_top_terms, top_terms3_threshold)
+        
+      #  if (length(all_top_terms) <= threshold) {
+          freq_terms2 = as.matrix(dtm2[i,])
+          freq_terms_sorted2 = sort(colSums(freq_terms2), decreasing=TRUE)
+          top_terms2 = head(freq_terms_sorted2, threshold - length(all_top_terms))
+          
+          top_terms2_threshold = top_terms2[top_terms2>=4]
+          
+          all_top_terms = append(all_top_terms, top_terms2_threshold)
+          
+          if (length(all_top_terms) <= threshold) {
+            freq_terms = as.matrix(dtm[i,])
+            freq_terms_sorted = sort(colSums(freq_terms), decreasing=TRUE)
+            top_terms = head(freq_terms_sorted, threshold - length(all_top_terms))
+            
+            all_top_terms = append(all_top_terms, top_terms)  
+            
+          }
+          
+        #} 
+        
+        
+      #}
+      
+      
+      metadata$subject[i] = paste0(names(all_top_terms), collapse=";")
+      
+      #cat(metadata$subject[i],sep="\n")
     }
   }
   
