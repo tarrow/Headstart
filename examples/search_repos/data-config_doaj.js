@@ -4,7 +4,7 @@ var data_config = {
     
     server_url: "http://localhost/headstart_master/server/",
 
-    service: "doaj",
+    service: "feed",
 
     title: "",
     base_unit: "citations",

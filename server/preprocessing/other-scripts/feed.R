@@ -36,11 +36,12 @@ get_papers <- function(query, params, limit=100, fields="title,id,counter_total_
   metadata$title = rsstitle
   metadata$paper_abstract = rssdesc
   metadata$year = rssdate
-  metadata$published_in = "Der Standard"
+  metadata$published_in = ""
   metadata$subject = ""
   metadata$authors = ""
   metadata$url = xpathSApply(rssdoc, '//item/link', xmlValue)
   metadata$id = xpathSApply(rssdoc, '//item/guid', xmlValue)
+  metadata$oa = FALSE
   
 
   metadata$relevance = c(nrow(metadata):1)
