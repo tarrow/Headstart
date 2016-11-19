@@ -18,6 +18,11 @@ switch (data_config.service) {
         service_name = "DOAJ";
         options = options_doaj;
         break;
+    case 'feed':
+        service_url = data_config.server_url + "services/searchFeed.php"
+        service_name = "Feed";
+        options = options_doaj;
+        break;
 }
 
 $(window).bind("pageshow", function () {

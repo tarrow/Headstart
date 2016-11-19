@@ -25,6 +25,9 @@ switch(service,
        doaj={
         source('../other-scripts/doaj.R')   
        },
+       feed={
+         source('../other-scripts/feed.R')   
+       },
       {
         source("../other-scripts/rplos_fast.R")
       }
@@ -32,7 +35,7 @@ switch(service,
 
 debug = FALSE
 
-MAX_CLUSTERS = 15
+MAX_CLUSTERS = 10
 
 print("inhere")
 

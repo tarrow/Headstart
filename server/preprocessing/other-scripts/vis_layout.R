@@ -23,7 +23,7 @@ vis_layout <- function(text, metadata, max_clusters=15, maxit=500, mindim=2, max
   normalized_matrix <- normalize_matrix(result$tdm_matrix);
   
   print("create clusters")
-  clusters <- create_clusters(normalized_matrix, max_clusters=15);
+  clusters <- create_clusters(normalized_matrix, max_clusters);
   layout <- create_ordination(normalized_matrix, maxit=500, mindim=2, maxdim=2)
   output <- create_output(clusters, layout, metadata_full_subjects)
   
@@ -80,9 +80,10 @@ replace_keywords_if_empty <- function(corpus, metadata) {
     if (metadata$subject[i] == "" || metadata$subject[i] == "n/a") {
       freq_terms = as.matrix(dtm[i,])
       freq_terms_sorted = sort(colSums(freq_terms), decreasing=TRUE)
-      top_terms = head(freq_terms_sorted, 10)
+      top_terms = head(freq_terms_sorted, 5)
       
       metadata$subject[i] = paste0(names(top_terms), collapse=";")
+      cat(metadata$subject[i])
     }
   }
   
