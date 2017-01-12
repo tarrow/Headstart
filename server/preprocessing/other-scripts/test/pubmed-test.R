@@ -32,6 +32,12 @@ input_data = get_papers(query, params)
 #time.taken <- end.time - start.time
 #time.taken
 
+start.time <- Sys.time()
+
 output_json = vis_layout(input_data$text, input_data$metadata, max_clusters=MAX_CLUSTERS)
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
 
 print(output_json)

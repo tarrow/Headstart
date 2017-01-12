@@ -129,8 +129,11 @@ create_clusters <- function(distance_matrix, max_clusters=-1, method="ward.D") {
 create_ordination <- function(distance_matrix, mindim=2, maxdim=2, maxit=500) {
 
   # Perform non-metric multidimensional scaling
-  nm = par.nmds(distance_matrix, mindim=mindim, maxdim=maxdim, maxit=maxit)
-  nm.nmin = nmds.min(nm)
+  #nm = par.nmds(distance_matrix, mindim=mindim, maxdim=maxdim, maxit=maxit)
+  #nm.nmin = nmds.min(nm)
+  
+  nm = tsne(distance_matrix, max_iter = 500)
+  nm.nmin = nm
   
   if(debug == TRUE) {
     # Plot results from multidimensional scaling, highlight clusters with symbols
@@ -144,8 +147,8 @@ create_ordination <- function(distance_matrix, mindim=2, maxdim=2, maxit=500) {
 
 create_output <- function(clusters, layout, metadata) {
 
-  x = layout$X1
-  y = layout$X2
+  x = layout[,1]
+  y = layout[,2]
   labels = clusters$labels
   groups = clusters$groups
   cluster = clusters$cluster
