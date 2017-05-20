@@ -51,7 +51,9 @@ get_papers <- function(query, params = NULL, limit = 100) {
   query <- paste0(query, article_types_string, exclude_articles_with_abstract)
   x <- rentrez::entrez_search(db = "pubmed", term = query, retmax = limit, mindate = from, maxdate = to, sort="relevance")
   res <- rentrez::entrez_fetch(db = "pubmed", id = x$ids, rettype = "xml")
+  cat(res,file="outfile2.txt",sep="\n")
   xml <- xml2::xml_children(xml2::read_xml(res))
+  
   out <- lapply(xml, function(z) {
     flds <- switch(
       xml2::xml_name(z),
