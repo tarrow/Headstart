@@ -27,7 +27,7 @@ if(!is.null(params_file)) {
 
 #start.time <- Sys.time()
 
-input_data = get_papers(query, params)
+input_data = get_papers(query, params, limit=10)
 
 #end.time <- Sys.time()
 #time.taken <- end.time - start.time
