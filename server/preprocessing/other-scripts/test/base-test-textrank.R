@@ -8,7 +8,7 @@ wd <- dirname(rstudioapi::getActiveDocumentContext()$path)
 
 setwd(wd) #Don't forget to set your working directory
 
-query <- "editorial" #args[2]
+query <- "natural language processing" #args[2]
 service <- "base"
 params <- NULL
 params_file <- "../api-params/params_base.json"
@@ -17,7 +17,7 @@ source("../vis_layout.R")
 source('../apis/base.R')
 source("../preprocessing.R")
 source("../clustering.R")
-source("../labeling.R")
+source("../labeling-textrank.R")
 
 debug = FALSE
 
@@ -30,13 +30,19 @@ if(!is.null(params_file)) {
 
 #start.time <- Sys.time()
 
-input_data = get_papers(query, params, limit=120)
+input_data = get_papers(query, params, limit=125)
 
 #end.time <- Sys.time()
 #time.taken <- end.time - start.time
 #time.taken
 
-output_json = vis_layout(input_data$text, input_data$metadata, max_clusters=MAX_CLUSTERS,
-                         add_stop_words=ADDITIONAL_STOP_WORDS, testing=TRUE, list_size=100)
+output_json = vis_layout(input_data$text, input_data$metadata,
+                         max_clusters=MAX_CLUSTERS,
+                         add_stop_words=ADDITIONAL_STOP_WORDS,
+                         testing=TRUE, list_size=100,
+                         labeling_method = "textrank")
 
 print(output_json)
+
+test = fromJSON(output_json)
+unique(test$cluster_labels)

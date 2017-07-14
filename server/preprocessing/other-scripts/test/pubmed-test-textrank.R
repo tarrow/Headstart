@@ -2,31 +2,22 @@ rm(list = ls())
 
 library(rstudioapi)
 
+options(warn=1)
+
 wd <- dirname(rstudioapi::getActiveDocumentContext()$path)
 
 setwd(wd) #Don't forget to set your working directory
 
-query <- "frogs"
-service <- "plos"
-params_file <- singleString <- paste(readLines("../api-params/params.json"), collapse=" ")
-
+query <- "deep learning" #args[2]
+service <- "pubmed"
+params <- NULL
+params_file <- "../api-params/params_pubmed.json"
 
 source("../vis_layout.R")
+source('../apis/pubmed.R')
 source("../preprocessing.R")
 source("../clustering.R")
-source("../labeling.R")
-
-switch(service,
-       plos={
-         source("../apis/rplos_fast.R")
-       },
-       pubmed={
-         source('../apis/pubmed.R')
-       },
-    {
-      source("../apis/rplos_fast.R")
-    }
-)
+source("../labeling-textrank.R")
 
 debug = FALSE
 
@@ -45,6 +36,12 @@ input_data = get_papers(query, params)
 #time.taken <- end.time - start.time
 #time.taken
 
-output_json = vis_layout(input_data$text, input_data$metadata, max_clusters=MAX_CLUSTERS, add_stop_words=ADDITIONAL_STOP_WORDS, taxonomy_separator="/", testing=TRUE)
+output_json = vis_layout(input_data$text, input_data$metadata,
+                         max_clusters = MAX_CLUSTERS,
+                         add_stop_words = ADDITIONAL_STOP_WORDS, testing=TRUE,
+                         labeling_method = "textrank")
 
 print(output_json)
+
+test = fromJSON(output_json)
+unique(test$cluster_labels)
