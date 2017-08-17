@@ -4,10 +4,10 @@ var data_config = {
 
     title: "OpenUp Dissemination Toolbox",
     input_format: "csv",
-    base_unit: "readers",
+    base_unit: "",
     use_area_uri: false,
     is_force_areas: false,
-    url_prefix: "http://mendeley.com/catalog/",
+    url_prefix: "",
     
     show_timeline: false,
     show_dropdown: false,
@@ -15,7 +15,9 @@ var data_config = {
     show_list:true,
     is_force_papers:true,
 
-    files: [{
+  sort_options: [],
+
+  files: [{
         title: "toolbox",
         file: "./data/toolbox.csv"
     }]
