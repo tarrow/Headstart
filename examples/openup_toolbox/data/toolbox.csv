@@ -1,32 +1,32 @@
-id,title,readers,x,y,area,paper_abstract,published_in,year,url,file_hash,authors,oa_state
-1,Polymath Project,1,0.7723814929,0.7943511181,Video,This will describe the project/tool,,2017,https://polymathprojects.org/,asdf123,,0
-2,Numberphile,1,0.8447061635,0.5833857851,Video,This will describe the project/tool,,2017,http://www.numberphile.com/,asdf124,,0
-3,Minute Physics,1,0.4193380821,0.0907078179,Video,This will describe the project/tool,,2017,http://www.minutephysics.com/,asdf125,,0
-4,Pluto Fly-by,1,0.441731503,0.2763854028,Video,This will describe the project/tool,,2017,https://www.nasa.gov/mission_pages/newhorizons/main/index.html,asdf126,,0
-5,Ice Bucket Challenge,1,0.6912754814,0.0333990806,Video,This will describe the project/tool,,2017,https://en.wikipedia.org/wiki/Ice_Bucket_Challenge,asdf127,,0
-6,Gut Project,1,0.7044053174,0.5704684935,Video,This will describe the project/tool,,2017,http://www.darm-mit-charme.de/,asdf128,,0
-7,Project Soha,1,0.8814239316,0.0469549724,Video,This will describe the project/tool,,2017,http://www.projetsoha.org/,asdf129,,0
-8,TED,1,0.3353331168,0.3701118922,Video,This will describe the project/tool,,2017,https://www.ted.com/,asdf130,,0
-9,CollabLab,1,0.1755747236,0.8982746216,Video,This will describe the project/tool,,2017,http://www.collab-lab.co.uk/,asdf131,,0
-10,Vsauce,1,0.6465798201,0.6412282509,Video,This will describe the project/tool,,2017,http://www.vsauce.com/#/,asdf132,,0
-11,WhoLoDancE,1,0.9988653374,0.5071361072,Video,This will describe the project/tool,,2017,http://www.wholodance.eu/,asdf133,,0
-12,Exomars,1,0.7842728746,0.7149446131,Video,This will describe the project/tool,,2017,http://exploration.esa.int/mars/,asdf134,,0
-13,CERN LHC Experiments,1,0.7837170351,0.3873109757,Video,This will describe the project/tool,,2017,https://home.cern/topics/large-hadron-collider,asdf135,,0
-14,101 Innovations in scholarly communication,1,0.7771216467,0.4472536406,Social Media,This will describe the project/tool,,2017,https://101innovations.wordpress.com/,asdf136,,0
-15,Galaxy Zoo,1,0.9179876032,0.679522603,Games,This will describe the project/tool,,2017,https://www.galaxyzoo.org/,asdf137,,0
-16,Foldit!,1,0.1729288242,0.7777315116,Games,This will describe the project/tool,,2017,https://fold.it/portal/,asdf138,,0
-17,The Big Bell Test,1,0.475344055,0.8168524338,Games,This will describe the project/tool,,2017,test,asdf139,,0
-18,ScienceAtHome,1,0.0555760974,0.7151958586,Games,This will describe the project/tool,,2017,https://www.scienceathome.org/,asdf140,,0
-19,Human Brain Project,1,0.9521644741,0.5005323537,Website,This will describe the project/tool,,2017,https://www.humanbrainproject.eu/en/,asdf141,,0
-20,Homer Multitext,1,0.6962682322,0.7856562588,Website,This will describe the project/tool,,2017,http://www.homermultitext.org/,asdf142,,0
-21,Pelagios,1,0.6092043243,0.8346473325,Website,This will describe the project/tool,,2017,http://commons.pelagios.org/,asdf143,,0
-22,Synthesys III,1,0.0180946715,0.0782195806,Collaborative Research,This will describe the project/tool,,2017,http://www.synthesys.info/,asdf144,,0
-25,EU BON,1,0.0169311129,0.6506931018,Code/Data/Notes Repositories,This will describe the project/tool,,2017,http://www.eubon.eu/,asdf147,,0
-26,Open Source Malaria,1,0.5367115161,0.0368978655,Citizen-Science,This will describe the project/tool,,2017,http://opensourcemalaria.org/,asdf148,,0
-27,Open Innovation in Science,1,0.6883380921,0.7088958151,Citizen-Science,This will describe the project/tool,,2017,http://www.ois.lbg.ac.at/home.html,asdf149,,0
-28,Personal Genome Project,1,0.0092742736,0.7324875091,Citizen-Science,This will describe the project/tool,,2017,test,asdf150,,0
-29,Wildlife of our Homes,1,0.2455855078,0.2368811811,Citizen-Science,This will describe the project/tool,,2017,test,asdf151,,0
-30,Bauhinia Genome,1,0.2445274676,0.3794022961,Citizen-Science,This will describe the project/tool,,2017,test,asdf152,,0
-31,Open Notebooks Science,1,0.5631189804,0.554418905,Code/Data/Notes Repositories,This will describe the project/tool,,2017,test,asdf153,,0
-32,Faceted Debate,1,0.9526820338,0.2615007856,Code/Data/Notes Repositories,This will describe the project/tool,,2017,test,asdf154,,0
-33,Frontiers for young Minds,1,0.5459448531,0.554668296,Educational Materials,This will describe the project/tool,,2017,test,asdf155,,0
+id,title,readers,x,y,area,Tool,paper_abstract,published_in,year,url,file_hash,authors,oa_state
+1,Polymath Project,1,2,1,Video,Video Sharing,This will describe the project/tool,,2017,https://www.openuphub.eu/component/k2/item/603-polymath-project,asdf123,,0
+2,Numberphile,1,2,1,Video,Video Sharing,This will describe the project/tool,,2017,http://www.numberphile.com/,asdf124,,0
+3,Minute Physics,1,2,1,Video,Video Sharing,This will describe the project/tool,,2017,http://www.minutephysics.com/,asdf125,,0
+4,Pluto Fly-by,1,2,1,Video,"Live-Streaming, Video Sharing","NASA's New Horizons probe has visited a place never before visited by a robotic probe from earth: Pluto. In July 2015, the spacecraft completed a nearly-decade-long journey to fly by Pluto, and revealed humanity's first close-up look at the distant dwarf planet (Dwarf planet). The goal of the dissemination was to communicate results of the mission and facts about Pluto to the broader audience.",,2017,https://www.openuphub.eu/component/k2/item/601-pluto-fly-by,asdf126,,0
+5,Ice Bucket Challenge,1,2,1,Video,Video Sharing,This will describe the project/tool,,2017,https://en.wikipedia.org/wiki/Ice_Bucket_Challenge,asdf127,,0
+6,Gut Project,1,2,1,Video,"Science Slam, TV, Video Sharing",This will describe the project/tool,,2017,https://www.openuphub.eu/component/k2/item/605-gut-giulia-enders,asdf128,,0
+7,Project Soha,1,0,1,Collaborative Research,Collaboration Platform,This will describe the project/tool,,2017,https://www.openuphub.eu/component/k2/item/606-project-soha,asdf129,,0
+8,TED,1,2,1,Video,Video Sharing,This will describe the project/tool,,2017,https://www.ted.com/,asdf130,,0
+9,CollabLab,1,2,1,Video,Video Sharing,This will describe the project/tool,,2017,http://www.collab-lab.co.uk/,asdf131,,0
+10,Vsauce,1,2,1,Video,Video Sharing,This will describe the project/tool,,2017,http://www.vsauce.com/#/,asdf132,,0
+11,WhoLoDancE,1,1.71,0.29,Educational Materials,Educational Materials,This will describe the project/tool,,2017,http://www.wholodance.eu/,asdf133,,0
+12,Exomars,1,2,1,Video,Video Sharing,This will describe the project/tool,,2017,http://exploration.esa.int/mars/,asdf134,,0
+13,CERN LHC Experiments,1,2,1,Video,"Video Sharing, Code Repository, Data Repository",This will describe the project/tool,,2017,https://home.cern/topics/large-hadron-collider,asdf135,,0
+14,101 Innovations in scholarly communication,1,1.71,1.71,Social Media,Twitter,This will describe the project/tool,,2017,https://www.openuphub.eu/component/k2/item/610-101-innovations-in-scholarly-communications,asdf136,,0
+15,Galaxy Zoo,1,1,2,Games,Games,This will describe the project/tool,,2017,https://www.openuphub.eu/component/k2/item/602-galaxy-zoo,asdf137,,0
+16,Foldit!,1,1,2,Games,Games,This will describe the project/tool,,2017,https://fold.it/portal/,asdf138,,0
+17,The Big Bell Test,1,1,2,Games,Games,This will describe the project/tool,,2017,test,asdf139,,0
+18,ScienceAtHome,1,1,2,Games,Games,This will describe the project/tool,,2017,https://www.openuphub.eu/component/k2/item/607-scienceathome,asdf140,,0
+19,Human Brain Project,1,0.29,1.71,Website,Website,This will describe the project/tool,,2017,https://www.openuphub.eu/component/k2/item/604-brain-projects-think-big,asdf141,,0
+20,Homer Multitext,1,0.29,1.71,Website,Website,This will describe the project/tool,,2017,https://www.openuphub.eu/component/k2/item/609-homer-multitext-project,asdf142,,0
+21,Pelagios,1,0.29,1.71,Website,Website,This will describe the project/tool,,2017,http://commons.pelagios.org/,asdf143,,0
+22,Synthesys III,1,0,1,Collaborative Research,Collaboration Platform,This will describe the project/tool,,2017,http://www.synthesys.info/,asdf144,,0
+25,EU BON,1,0.29,0.29,Code/Data/Notes Repositories,Data Repository,This will describe the project/tool,,2017,http://www.eubon.eu/,asdf147,,0
+26,Open Source Malaria,1,1,0,Citizen-Science,Citizen-Science,This will describe the project/tool,,2017,http://opensourcemalaria.org/,asdf148,,0
+27,Open Innovation in Science,1,1,0,Citizen-Science,Citizen-Science,This will describe the project/tool,,2017,http://www.ois.lbg.ac.at/home.html,asdf149,,0
+28,Personal Genome Project,1,1,0,Citizen-Science,Citizen-Science,This will describe the project/tool,,2017,http://www.personalgenomes.org/,asdf150,,0
+29,Wildlife of our Homes,1,1,0,Citizen-Science,Citizen-Science,This will describe the project/tool,,2017,http://robdunnlab.com/projects/wild-life-of-our-homes/,asdf151,,0
+30,Bauhinia Genome,1,1,0,Citizen-Science,Citizen-Science,This will describe the project/tool,,2017,http://bauhiniagenome.hk/,asdf152,,0
+31,Open Notebooks Science,1,0.29,0.29,Code/Data/Notes Repositories,Note Repository,This will describe the project/tool,,2017,http://onsnetwork.org/,asdf153,,0
+33,Frontiers for young Minds,1,1.71,0.29,Educational Materials,Educational Materials,This will describe the project/tool,,2017,https://kids.frontiersin.org/,asdf155,,0
+34,Transcribe Bentham,1,0,1,Collaborative Research,Collaboration Platform,This will describe the project/tool,,2017,https://www.openuphub.eu/component/k2/item/608-transcribe-bentham,asdf156,,0
