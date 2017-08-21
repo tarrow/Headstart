@@ -10,6 +10,6 @@ if __name__ == "__main__":
 newArr = []
 setOfTools = set()
 for elem in arr:
-    setOfTools.add(elem['Tool'])
+    setOfTools.add((elem['area'], elem['Tool']))
     # print(elem)
 print(setOfTools)

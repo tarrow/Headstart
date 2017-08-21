@@ -14,6 +14,9 @@ var data_config = {
     show_intro: false,
     show_list:true,
     is_force_papers:true,
+    content_based: true,
+
+    intro: "intro_ou",
 
   sort_options: [],
 
