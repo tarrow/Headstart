@@ -266,9 +266,9 @@ list.populateMetaData = function(nodes) {
                 
                 return d.published_in; 
             })
-        list_metadata.select(".list_pubyear")
-            .html(function(d) {
-                return " (" + d.year + ")"; });
+        // list_metadata.select(".list_pubyear")
+        //     .html(function(d) {
+        //         return " (" + d.year + ")"; });
 
         // Following part should probably be moved to a separate function
         var paper_title = d3.select(elem).select("#list_title");
