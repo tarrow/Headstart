@@ -18,10 +18,15 @@ var data_config = {
 
     intro: "intro_ou",
 
-  sort_options: [],
+  sort_options: ["title"],
 
   files: [{
         title: "toolbox",
         file: "./data/toolbox.csv"
-    }]
+    },
+    {
+      title: "toolbox2",
+      file: "./data/toolboxv2.csv"
+    }
+  ]
 };
