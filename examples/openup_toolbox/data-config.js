@@ -22,11 +22,11 @@ var data_config = {
 
   files: [{
         title: "toolbox",
-        file: "./data/toolbox.csv"
+        file: "./data/toolbox1.csv"
     },
     {
       title: "toolbox2",
-      file: "./data/toolboxv2.csv"
+      file: "./data/toolbox2.csv"
     }
   ]
 };
