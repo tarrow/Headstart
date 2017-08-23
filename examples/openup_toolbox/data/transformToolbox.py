@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import csv
 import math
+import random
 
 def circle_coords(n, i):
     TWOPI = 2*3.14159
@@ -23,7 +24,7 @@ def normalize_source(source_object):
 if __name__ == "__main__":
     SOURCE_CSV = 'source.csv'
     CSVS_TO_WRITE = [{'file':'toolbox1.csv', 'mode':'default'}, {'file':'toolbox2.csv', 'mode': 'by_tool'}]
-    FIELDNAMES = ['id','title','readers','x','y','area', 'paper_abstract','published_in','year','url','file_hash','authors','oa_state']
+    FIELDNAMES = ['id','title','readers','x','y','area', 'paper_abstract','published_in','year','url','file_hash','authors','oa_state', 'cost', 'audience']
 
     arr = []
     with open(SOURCE_CSV, 'r') as source:
@@ -63,7 +64,9 @@ if __name__ == "__main__":
                                 'url' : row['url'],
                                 'file_hash' : hash(row['title']),
                                 'authors' : '',
-                                'oa_state' : '0'
+                                'oa_state' : '0',
+                                'cost' : random.choice(['low', 'medium', 'high']),
+                                'audience' : random.choice(['researcher', 'funder', 'generalpublic'])
                             }
                             writer.writerow(new_row)
 

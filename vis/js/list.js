@@ -94,6 +94,34 @@ list.drawList = function() {
       }
     }
 
+    // Add filter dropdowns
+    let cost_dropdown = '<select id="filter_cost">' +
+      '<option value="">No cost filter</option>' +
+      '<option value="low">Low budget projects</option>' +
+      '<option value="medium">Medium budget projects</option>' +
+      '<option value="high">High budget projects</option>' +
+      '</select>';
+    $("#explorer_options").append(cost_dropdown);
+    $("#filter_cost").change(() => {
+      console.log(mediator.current_bubble);
+      console.log($("#filter_cost")[0].value);
+      list.filterListByAttribute('cost', $("#filter_cost")[0].value);
+    });
+
+    // Add filter dropdowns
+    let audience_dropdown = '<select id="filter_audience">' +
+      '<option value="">No audience filter</option>' +
+      '<option value="researcher">Researchers</option>' +
+      '<option value="generalpublic">General Public</option>' +
+      '<option value="funders">Funders</option>' +
+      '</select>';
+    $("#explorer_options").append(audience_dropdown);
+    $("#filter_audience").change(() => {
+      console.log(mediator.current_bubble);
+      console.log($("#filter_audience")[0].value);
+      list.filterListByAttribute('audience', $("#filter_audience")[0].value);
+    });
+
     this.fit_list_height();
     if(!config.render_bubbles) d3.select(window).on("resize", () => { this.fit_list_height(); });
 
@@ -359,6 +387,81 @@ list.populateList = function() {
     this.populateMetaData(paper_nodes);
     this.createAbstracts(paper_nodes);
     this.populateReaders(paper_nodes);
+};
+
+list.filterListByAttribute = function (attribute, value) {
+  // Full list of items in the map/list
+  let all_list_items = d3.selectAll("#list_holder");
+  let all_map_items = d3.selectAll(".paper");
+  //TODO why not mediator.current_circle
+  let current_circle = d3.select(mediator.current_zoom_node);
+
+  let filtered_list_items = all_list_items
+    .filter(function (d) {
+      if (mediator.is_zoomed === true) {
+        if (config.use_area_uri && mediator.current_enlarged_paper === null) {
+          return current_circle.data()[0].area_uri == d.area_uri;
+        } else if (config.use_area_uri && mediator.current_enlarged_paper !== null) {
+          return mediator.current_enlarged_paper.id == d.id;
+        } else {
+          return current_circle.data()[0].title == d.area;
+        }
+      } else {
+        return true;
+      }
+    });
+
+  // Filter out items based on searchterm
+  let filtered_map_items = all_map_items
+    .filter(function (d) {
+      if (mediator.is_zoomed === true) {
+        if (config.use_area_uri) {
+          return current_circle.data()[0].area_uri == d.area_uri;
+        } else {
+          return current_circle.data()[0].title == d.area;
+        }
+      } else {
+        return true;
+      }
+    });
+
+  // Deal with selected papers in list
+  let selected_list_items = filtered_list_items
+    .filter(function(d) {
+      if (d.paper_selected === true) {
+        return true;
+      }
+    });
+
+  if (selected_list_items[0].length === 0) {
+    selected_list_items = filtered_list_items;
+  }
+
+  if (value === "") {
+    selected_list_items.style("display", "block");
+    filtered_map_items.style("display", "block");
+
+    mediator.current_bubble.data.forEach(function (d) {
+      d.filtered_out = false;
+    });
+
+    return;
+  }
+
+  selected_list_items.style("display", "inline");
+  filtered_map_items.style("display", "inline");
+
+
+  selected_list_items.filter((d) => {
+    d.filtered_out = (d[attribute] !== value);
+    if (value === '') d.filtered_out = false;
+    return d.filtered_out;
+  }).style("display", "none");
+  filtered_map_items.filter((d) => {
+    d.filtered_out = (d[attribute] !== value);
+    if (value === '') d.filtered_out = false;
+    return d.filtered_out;
+  }).style("display", "none");
 };
 
 list.filterList = function (search_words) {
