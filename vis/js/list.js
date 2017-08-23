@@ -126,6 +126,7 @@ list.drawList = function() {
     if(!config.render_bubbles) d3.select(window).on("resize", () => { this.fit_list_height(); });
 
     this.papers_list = d3.select("#papers_list");
+    $("#sort-buttons").remove();
 };
 
 list.fit_list_height = function() {
