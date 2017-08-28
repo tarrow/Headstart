@@ -93,7 +93,7 @@ list.drawList = function() {
         addSortOption(container, config.sort_options[i], false);
       }
     }
-
+    let activeFilters = { cost : '', audience : ''};
     // Add filter dropdowns
     let cost_dropdown = '<select id="filter_cost">' +
       '<option value="">No cost filter</option>' +
@@ -103,9 +103,8 @@ list.drawList = function() {
       '</select>';
     $("#explorer_options").append(cost_dropdown);
     $("#filter_cost").change(() => {
-      console.log(mediator.current_bubble);
-      console.log($("#filter_cost")[0].value);
-      list.filterListByAttribute('cost', $("#filter_cost")[0].value);
+      activeFilters['cost'] = $("#filter_cost")[0].value;
+      list.filterListByAttribute(activeFilters);
     });
 
     // Add filter dropdowns
@@ -113,13 +112,12 @@ list.drawList = function() {
       '<option value="">No audience filter</option>' +
       '<option value="researcher">Researchers</option>' +
       '<option value="generalpublic">General Public</option>' +
-      '<option value="funders">Funders</option>' +
+      '<option value="funder">Funders</option>' +
       '</select>';
     $("#explorer_options").append(audience_dropdown);
     $("#filter_audience").change(() => {
-      console.log(mediator.current_bubble);
-      console.log($("#filter_audience")[0].value);
-      list.filterListByAttribute('audience', $("#filter_audience")[0].value);
+      activeFilters['audience'] = $("#filter_audience")[0].value;
+      list.filterListByAttribute(activeFilters);
     });
 
     this.fit_list_height();
@@ -390,7 +388,7 @@ list.populateList = function() {
     this.populateReaders(paper_nodes);
 };
 
-list.filterListByAttribute = function (attribute, value) {
+list.filterListByAttribute = function (activeFilters) {
   // Full list of items in the map/list
   let all_list_items = d3.selectAll("#list_holder");
   let all_map_items = d3.selectAll(".paper");
@@ -438,29 +436,33 @@ list.filterListByAttribute = function (attribute, value) {
     selected_list_items = filtered_list_items;
   }
 
-  if (value === "") {
-    selected_list_items.style("display", "block");
-    filtered_map_items.style("display", "block");
+  selected_list_items.style("display", "block");
+  filtered_map_items.style("display", "block");
 
-    mediator.current_bubble.data.forEach(function (d) {
-      d.filtered_out = false;
-    });
-
-    return;
-  }
+  mediator.current_bubble.data.forEach(function (d) {
+    d.filtered_out = false;
+  });
 
   selected_list_items.style("display", "inline");
   filtered_map_items.style("display", "inline");
 
 
   selected_list_items.filter((d) => {
-    d.filtered_out = (d[attribute] !== value);
-    if (value === '') d.filtered_out = false;
+    let hasNonMatchingValue = [];
+    Object.keys(activeFilters).forEach((key) => {
+      if (activeFilters[key] !== '')
+        hasNonMatchingValue.push(d[key] !== activeFilters[key]);
+    });
+    d.filtered_out = hasNonMatchingValue.some(check => check);
     return d.filtered_out;
   }).style("display", "none");
   filtered_map_items.filter((d) => {
-    d.filtered_out = (d[attribute] !== value);
-    if (value === '') d.filtered_out = false;
+    let hasNonMatchingValue = [];
+    Object.keys(activeFilters).forEach((key) => {
+      if (activeFilters[key] !== '')
+        hasNonMatchingValue.push(d[key] !== activeFilters[key]);
+    });
+    d.filtered_out = hasNonMatchingValue.some(check => check);
     return d.filtered_out;
   }).style("display", "none");
 };
