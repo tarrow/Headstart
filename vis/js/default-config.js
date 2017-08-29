@@ -24,8 +24,8 @@ var config = {
     area_title_max_size: 50,
 
     // papers
-    dogear_width: 0.1,
-    dogear_height: 0.1,
+    dogear_width: 0.,
+    dogear_height: 0.,
     paper_width_factor: 1.2,
     paper_height_factor: 1.6,
 

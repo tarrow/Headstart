@@ -16,6 +16,10 @@ var data_config = {
     is_force_papers:true,
     content_based: true,
 
+    // papers
+    dogear_width: 0.,
+    dogear_height: 0.,
+
     intro: "intro_ou",
 
   sort_options: ["title"],

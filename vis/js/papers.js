@@ -168,7 +168,7 @@ papers.drawPapers = function () {
 // draw the path "around" the papers, perhaps "border" would be a better name
 papers.drawPaperPath = function (nodes) {
     var region = (d) => {
-        return this.createPaperPath(0, 0, d.width, d.height, 0.2, 0.2);
+        return this.createPaperPath(0, 0, d.width, d.height, 0., 0.);
     };
 
     nodes.append("path")
@@ -194,7 +194,7 @@ papers.resetPaths = function () {
 // draw the path of the dog-ear for the papers
 papers.drawDogEarPath = function (nodes) {
     var dogear = (d) => {
-        return this.createDogearPath(d.width * 0.8, 0, d.width, d.height, 0.2, 0.2);
+        return this.createDogearPath(d.width, 0, d.width, d.height, 0., 0.);
     };
 
     nodes.append("path")

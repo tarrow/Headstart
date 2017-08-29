@@ -246,21 +246,20 @@ class Canvas {
 
     if (config.show_dropdown) {
       let dropdown = '<select id="datasets"></select>';
-      let buttons = '<div class="btn-group" data-toggle="buttons" id="mode_btns">' +
-        '<label class="btn btn-secondary">' +
+      let buttons = '<div class="btn-group" data-toggle="buttons" id="mode_btns" style="margin: 10px;">' +
+        '<label class="btn btn-default" id="label_1">' +
           '<input type="radio" name="options" id="mode_option1" autocomplete="off" value="0"> View Case Studies' +
         '</label>' +
-        '<label class="btn btn-secondary">' +
+        '<label class="btn btn-default" id="label_2">' +
           '<input type="radio" name="options" id="mode_option2" autocomplete="off" value="1"> View Tools' +
         '</label>' +
         '</div>';
       const cfn = parseInt(mediator.current_file_number) + 1;
-      console.log(cfn);
-      $("#mode_btns>label:nth-child("+cfn+")").addClass("active");
-      $("#mode_btns>label>input:nth-child("+cfn+")").attr("checked");
+      subdiscipline_title_h4.append(buttons);
+      $("#mode_btns :nth-child("+cfn+")").addClass("active");
+      $("#mode_btns :nth-child("+cfn+")>input").attr("checked");
 
       // subdiscipline_title_h4.append(" Select dataset: ");
-      subdiscipline_title_h4.append(buttons);
       //
       // $.each(config.files, (index, entry) => {
       //   let current_item = '<option value="' + entry.file + '">' + entry.title + '</option>';
