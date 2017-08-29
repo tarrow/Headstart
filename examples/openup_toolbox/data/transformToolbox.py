@@ -86,7 +86,7 @@ if __name__ == "__main__":
                     for row in normalized_csv:
                         if row['subarea'] not in subarea_projects:
                             subarea_projects[row['subarea']] = []
-                        new_entry = '<li><a href=\"' + row['url'] + '\">' + row['title'] + '</a></li>'
+                        new_entry = '<li><a href=\"' + row['url'] + '\" target="_blank" rel="noopener noreferrer">' + row['title'] + '</a></li>'
                         if new_entry not in subarea_projects[row['subarea']]:
                             subarea_projects[row['subarea']].append(new_entry)
                     for (index, row) in enumerate(normalized_csv):

@@ -95,7 +95,7 @@ list.drawList = function() {
     }
     let activeFilters = { cost : '', audience : ''};
     // Add filter dropdowns
-    let cost_dropdown = '<select id="filter_cost">' +
+    let cost_dropdown = '<select id="filter_cost" style="margin: 10px;">' +
       '<option value="">No cost filter</option>' +
       '<option value="low">Low budget projects</option>' +
       '<option value="medium">Medium budget projects</option>' +
