@@ -93,32 +93,35 @@ list.drawList = function() {
         addSortOption(container, config.sort_options[i], false);
       }
     }
-    let activeFilters = { cost : '', audience : ''};
-    // Add filter dropdowns
-    let cost_dropdown = '<select id="filter_cost" style="margin: 10px;">' +
-      '<option value="">No cost filter</option>' +
-      '<option value="low">Low budget projects</option>' +
-      '<option value="medium">Medium budget projects</option>' +
-      '<option value="high">High budget projects</option>' +
-      '</select>';
-    $("#explorer_options").append(cost_dropdown);
-    $("#filter_cost").change(() => {
-      activeFilters['cost'] = $("#filter_cost")[0].value;
-      list.filterListByAttribute(activeFilters);
-    });
 
-    // Add filter dropdowns
-    let audience_dropdown = '<select id="filter_audience">' +
-      '<option value="">No audience filter</option>' +
-      '<option value="researcher">Researchers</option>' +
-      '<option value="generalpublic">General Public</option>' +
-      '<option value="funder">Funders</option>' +
-      '</select>';
-    $("#explorer_options").append(audience_dropdown);
-    $("#filter_audience").change(() => {
-      activeFilters['audience'] = $("#filter_audience")[0].value;
-      list.filterListByAttribute(activeFilters);
-    });
+    let activeFilters = { cost : '', audience : ''};
+    if (mediator.current_bubble.title === 'toolbox') {
+      // Add filter dropdowns
+      let cost_dropdown = '<select id="filter_cost" style="margin: 10px;">' +
+        '<option value="">No cost filter</option>' +
+        '<option value="low">Low budget projects</option>' +
+        '<option value="medium">Medium budget projects</option>' +
+        '<option value="high">High budget projects</option>' +
+        '</select>';
+      $("#explorer_options").append(cost_dropdown);
+      $("#filter_cost").change(() => {
+        activeFilters['cost'] = $("#filter_cost")[0].value;
+        list.filterListByAttribute(activeFilters);
+      });
+
+      // Add filter dropdowns
+      let audience_dropdown = '<select id="filter_audience">' +
+        '<option value="">No audience filter</option>' +
+        '<option value="researcher">Researchers</option>' +
+        '<option value="generalpublic">General Public</option>' +
+        '<option value="funder">Funders</option>' +
+        '</select>';
+      $("#explorer_options").append(audience_dropdown);
+      $("#filter_audience").change(() => {
+        activeFilters['audience'] = $("#filter_audience")[0].value;
+        list.filterListByAttribute(activeFilters);
+      });
+    }
 
     this.fit_list_height();
     if(!config.render_bubbles) d3.select(window).on("resize", () => { this.fit_list_height(); });
