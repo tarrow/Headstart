@@ -425,7 +425,6 @@ list.filterListByAttributesInSpan = function(activeFilters) {
 };
 
 list.filterListIfNoProjectEntries = function () {
-  console.log("filterListIfNoProjectEntries");
   // Full list of items in the map/list
   let all_list_items = d3.selectAll("#list_holder");
   let all_map_items = d3.selectAll(".paper");
