@@ -483,7 +483,7 @@ list.filterListIfNoProjectEntries = function () {
   selected_list_items.style("display", "inline");
   filtered_map_items.style("display", "inline");
 
-  selected_list_items[0].forEach((item) => {
+  all_list_items[0].forEach((item) => {
     let current_list_entries = d3.select(item).selectAll("li");
     let allListEntriesHidden = (current_list_entries[0].every((entry) => entry.style.display === "none"))
     if (allListEntriesHidden)
