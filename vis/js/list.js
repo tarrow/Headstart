@@ -12,6 +12,8 @@ const listEntryTemplate = require("templates/list/list_entry.handlebars");
 
 export const list = StateMachine.create({
 
+    activeFilters: { cost : '', audience : ''},
+
     events: [
         { name: "start",  from: "none",    to: "hidden"  },
         { name: "show",   from: "hidden",  to: "visible" },
@@ -94,40 +96,47 @@ list.drawList = function() {
       }
     }
 
-    let activeFilters = { cost : '', audience : ''};
-    if (mediator.current_bubble.title === 'toolbox') {
-      // Add filter dropdowns
-      let cost_dropdown = '<select id="filter_cost" style="margin: 10px;">' +
-        '<option value="">No cost filter</option>' +
-        '<option value="low">Low budget projects</option>' +
-        '<option value="medium">Medium budget projects</option>' +
-        '<option value="high">High budget projects</option>' +
-        '</select>';
-      $("#explorer_options").append(cost_dropdown);
-      $("#filter_cost").change(() => {
-        activeFilters['cost'] = $("#filter_cost")[0].value;
-        list.filterListByAttribute(activeFilters);
-      });
+    let self = this;
+    // Add filter dropdowns
+    let cost_dropdown = '<select id="filter_cost" style="margin: 10px;">' +
+      '<option value="">All budgets</option>' +
+      '<option value="low">Low budget projects</option>' +
+      '<option value="medium">Medium budget projects</option>' +
+      '<option value="high">High budget projects</option>' +
+      '</select>';
+    $("#explorer_options").append(cost_dropdown);
+    $("#filter_cost").change(() => {
+      mediator.activeFilters['cost'] = $("#filter_cost")[0].value;
+      list.filterListByActiveFilters(mediator.activeFilters);
+    });
 
-      // Add filter dropdowns
-      let audience_dropdown = '<select id="filter_audience">' +
-        '<option value="">No audience filter</option>' +
-        '<option value="researcher">Researchers</option>' +
-        '<option value="generalpublic">General Public</option>' +
-        '<option value="funder">Funders</option>' +
-        '</select>';
-      $("#explorer_options").append(audience_dropdown);
-      $("#filter_audience").change(() => {
-        activeFilters['audience'] = $("#filter_audience")[0].value;
-        list.filterListByAttribute(activeFilters);
-      });
-    }
+    // Add filter dropdowns
+    let audience_dropdown = '<select id="filter_audience">' +
+      '<option value="">All audiences</option>' +
+      '<option value="researcher">Researchers</option>' +
+      '<option value="generalpublic">General Public</option>' +
+      '<option value="funder">Funders</option>' +
+      '</select>';
+    $("#explorer_options").append(audience_dropdown);
+    $("#filter_audience").change(() => {
+      mediator.activeFilters['audience'] = $("#filter_audience")[0].value;
+      list.filterListByActiveFilters(mediator.activeFilters);
+    });
 
     this.fit_list_height();
     if(!config.render_bubbles) d3.select(window).on("resize", () => { this.fit_list_height(); });
 
     this.papers_list = d3.select("#papers_list");
     $("#sort-buttons").remove();
+};
+
+list.filterListByActiveFilters = function(activeFilters) {
+  if (mediator.current_bubble.title === 'toolbox') {
+    list.filterListByAttribute(activeFilters);
+  } else if (mediator.current_bubble.title === 'toolbox2') {
+    list.filterListByAttributesInSpan(activeFilters);
+    list.filterListIfNoProjectEntries();
+  }
 };
 
 list.fit_list_height = function() {
@@ -340,12 +349,21 @@ list.populateMetaData = function(nodes) {
 };
 
 list.createAbstracts = function(nodes) {
+  if (mediator.current_bubble.title === "toolbox") {
     nodes[0].forEach((elem) => {
         d3.select(elem).select("#list_abstract")
             .html((d) => {
                 return this.createAbstract(d, config.abstract_small);
             });
     });
+  } else {
+    nodes[0].forEach((elem) => {
+      d3.select(elem).select("#list_abstract")
+        .html((d) => {
+          return d.paper_abstract;
+        });
+    })
+  }
 
     this.createHighlights(this.current_search_words);
 };
@@ -389,6 +407,95 @@ list.populateList = function() {
     this.populateMetaData(paper_nodes);
     this.createAbstracts(paper_nodes);
     this.populateReaders(paper_nodes);
+};
+
+list.filterListByAttributesInSpan = function(activeFilters) {
+  let all_project_entries = d3.selectAll(".project_entry")[0];
+  d3.selectAll(all_project_entries).style("display", "block");
+  // console.log(all_project_entries);
+  all_project_entries.forEach((project_entry) => {
+    let metadata = project_entry.children[1].innerHTML;
+    // console.log(metadata);
+    let show_project_entry = true;
+    Object.values(activeFilters).forEach((value) => {
+      if (!(metadata.includes(value))) show_project_entry = false;
+    });
+    if (!show_project_entry) d3.select(project_entry).style("display", "none");
+  })
+};
+
+list.filterListIfNoProjectEntries = function () {
+  console.log("filterListIfNoProjectEntries");
+  // Full list of items in the map/list
+  let all_list_items = d3.selectAll("#list_holder");
+  let all_map_items = d3.selectAll(".paper");
+  //TODO why not mediator.current_circle
+  let current_circle = d3.select(mediator.current_zoom_node);
+
+  let filtered_list_items = all_list_items
+    .filter(function (d) {
+      if (mediator.is_zoomed === true) {
+        if (config.use_area_uri && mediator.current_enlarged_paper === null) {
+          return current_circle.data()[0].area_uri == d.area_uri;
+        } else if (config.use_area_uri && mediator.current_enlarged_paper !== null) {
+          return mediator.current_enlarged_paper.id == d.id;
+        } else {
+          return current_circle.data()[0].title == d.area;
+        }
+      } else {
+        return true;
+      }
+    });
+
+  // Filter out items based on searchterm
+  let filtered_map_items = all_map_items
+    .filter(function (d) {
+      if (mediator.is_zoomed === true) {
+        if (config.use_area_uri) {
+          return current_circle.data()[0].area_uri == d.area_uri;
+        } else {
+          return current_circle.data()[0].title == d.area;
+        }
+      } else {
+        return true;
+      }
+    });
+
+  // Deal with selected papers in list
+  let selected_list_items = filtered_list_items
+    .filter(function(d) {
+      if (d.paper_selected === true) {
+        return true;
+      }
+    });
+
+  if (selected_list_items[0].length === 0) {
+    selected_list_items = filtered_list_items;
+  }
+
+  selected_list_items.style("display", "block");
+  filtered_map_items.style("display", "block");
+
+  mediator.current_bubble.data.forEach(function (d) {
+    d.filtered_out = false;
+  });
+
+  selected_list_items.style("display", "inline");
+  filtered_map_items.style("display", "inline");
+
+  selected_list_items[0].forEach((item) => {
+    let current_list_entries = d3.select(item).selectAll("li");
+    let allListEntriesHidden = (current_list_entries[0].every((entry) => entry.style.display === "none"))
+    if (allListEntriesHidden)
+      d3.select(item).each((d) => { d.filtered_out = true })
+  });
+  selected_list_items.filter((d) => {
+    return d.filtered_out;
+  }).style("display", "none");
+
+  filtered_map_items.filter((d) => {
+    return d.filtered_out;
+  }).style("display", "none");
 };
 
 list.filterListByAttribute = function (activeFilters) {
@@ -590,8 +697,9 @@ list.createHighlights = function (search_words) {
 
 // called quite often
 list.createAbstract = function(d, cut_off) {
-    if (typeof d.paper_abstract === "undefined")
-        return "";
+  if (typeof d.paper_abstract === "undefined")
+      return "";
+  if (mediator.current_bubble.title === "toolbox") {
 
     if(cut_off) {
         if(d.paper_abstract.length > cut_off) {
@@ -599,6 +707,9 @@ list.createAbstract = function(d, cut_off) {
         }
     }
     return d.paper_abstract;
+  } else {
+    return d.paper_abstract;
+  }
 };
 
 list.addBookmark = function(d) {

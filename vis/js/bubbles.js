@@ -494,7 +494,7 @@ BubblesFSM.prototype = {
                 .attr("x", 0)
                 .attr("y", 0);
 
-        mediator.publish("bubble_zoomout");
+        // mediator.publish("bubble_zoomout");
 
         if (mediator.current_zoom_node !== null) {
             toFront(mediator.current_zoom_node.parentNode);
@@ -612,6 +612,7 @@ BubblesFSM.prototype = {
                 .style("cursor", "default");
 
         papers.initPaperClickHandler();
+        mediator.publish("bubble_zoomout");
     },
 
     resetCircleDesignTimeLine: function () {

@@ -24,7 +24,7 @@ def normalize_source(source_object):
 if __name__ == "__main__":
     SOURCE_CSV = 'source.csv'
     CSVS_TO_WRITE = [{'file':'toolbox1.csv', 'mode':'default'}, {'file':'toolbox2.csv', 'mode': 'by_tool'}]
-    FIELDNAMES = ['id','title','readers','x','y','area', 'paper_abstract','published_in','year','url','file_hash','authors','oa_state', 'cost', 'audience']
+    FIELDNAMES = ['id','title','readers','x','y','area', 'paper_abstract','published_in','year','url','file_hash','authors','oa_state', 'cost', 'audience', 'why']
 
     arr = []
     with open(SOURCE_CSV, 'r') as source:
@@ -50,6 +50,7 @@ if __name__ == "__main__":
                         title_area_combo = (row['title'], row['area'])
                         if title_area_combo not in title_area_combos:
                             title_area_combos.add(title_area_combo)
+                            what = '<h5>What?</h5>' + '<p class="highlightable">' + row['what'] + '</p>'
                             why = ('<h5>Why?</h5>' + row['why']) if (row['why'] != '') else ''
                             new_row = {
                                 'id' : index,
@@ -58,7 +59,7 @@ if __name__ == "__main__":
                                 'x' : area_coords[row['area']]['x'],
                                 'y' : area_coords[row['area']]['y'],
                                 'area' : row['area'],
-                                'paper_abstract' : '<h5>What?</h5>' + row['what'] + why,
+                                'paper_abstract' : why + what,
                                 'published_in' : '',
                                 'year' : '',
                                 'url' : row['url'],
@@ -66,7 +67,8 @@ if __name__ == "__main__":
                                 'authors' : '',
                                 'oa_state' : '0',
                                 'cost' : random.choice(['low', 'medium', 'high']),
-                                'audience' : random.choice(['researcher', 'funder', 'generalpublic'])
+                                'audience' : random.choice(['researcher', 'funder', 'generalpublic']),
+                                'why' : why
                             }
                             writer.writerow(new_row)
 
@@ -86,7 +88,11 @@ if __name__ == "__main__":
                     for row in normalized_csv:
                         if row['subarea'] not in subarea_projects:
                             subarea_projects[row['subarea']] = []
-                        new_entry = '<li><a href=\"' + row['url'] + '\" target="_blank" rel="noopener noreferrer">' + row['title'] + '</a></li>'
+                        new_entry = '<li class="project_entry"><a href=\"' + row['url'] + \
+                                    '\" target="_blank" rel="noopener noreferrer">' + \
+                                    row['title'] + '</a>' + \
+                                    '<span class="projectmetadata" style="display : none">' + row['subarea'] + ',' + row['cost'] + ',' + row['audience'] + '</span>' + \
+                                    '</li>'
                         if new_entry not in subarea_projects[row['subarea']]:
                             subarea_projects[row['subarea']].append(new_entry)
                     for (index, row) in enumerate(normalized_csv):

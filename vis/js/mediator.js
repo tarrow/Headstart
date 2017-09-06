@@ -122,6 +122,7 @@ MyMediator.prototype = {
         MyMediator.prototype.is_zoomed = false;
         MyMediator.prototype.zoom_finished = false;
         MyMediator.prototype.is_in_normal_mode = true;
+        MyMediator.prototype.activeFilters = {cost : '', audience: ''}
     },
 
     init_modules: function() {
@@ -340,17 +341,20 @@ MyMediator.prototype = {
         mediator.manager.call('list', 'scrollTop', []);
         if (typeof d != 'undefined') {
             mediator.manager.call('list', 'updateByFiltered', []);
+            mediator.manager.call('list', 'filterListByAttributesInSpan', [mediator.activeFilters]);
             mediator.manager.call('list', 'filterListByAreaURIorArea', [d]);
         }
         if (mediator.current_zoom_mode !== null && typeof mediator.current_zoom_mode != 'undefined') {
             if (typeof d != 'undefined') {
                 mediator.manager.call('list', 'updateByFiltered', []);
+                mediator.manager.call('list', 'filterListByAttributesInSpan', [mediator.activeFilters]);
             }
         }
     },
     bubble_zoomout: function() {
         mediator.manager.call('list', 'reset', []);
         mediator.manager.call('list', 'updateByFiltered', []);
+        mediator.manager.call('list', 'filterListByActiveFilters', [mediator.activeFilters]);
         mediator.manager.call('list', 'scrollTop', []);
     },
 
