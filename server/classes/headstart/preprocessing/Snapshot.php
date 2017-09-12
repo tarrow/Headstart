@@ -5,6 +5,7 @@ namespace headstart\preprocessing;
 class Snapshot
 {
     protected $cmd;
+	protected $cmd_convert;
     public function __construct($ini_array, $query, $id, $service, $service_name) {
         $post_data = array(
             "query" => $query,
@@ -23,7 +24,10 @@ class Snapshot
         $width = $ini_array["snapshot"]["snapshot_width"];
 
         $url = "{$host}{$snap_php}?{$url_postfix}";
-        $this->cmd = "{$phantomjs} {$getsvg} \"{$url}\" {$storage}{$post_data['file']}.png {$width}";
+        $this->cmd = "TZ=\"America/Montreal\" {$phantomjs} {$getsvg} \"{$url}\" {$storage}{$post_data['file']}.png {$width}";
+		
+		$cmd_convert = "convert -quality 75 {$storage}{$post_data['file']}.png {$storage}{$post_data['file']}.jpg";
+		$this->cmd_convert = $x = "(" . $this->cmd . "; " . $cmd_convert . ") &";
     }
 
     public function takeSnapshot() {
@@ -31,7 +35,7 @@ class Snapshot
             pclose(popen("start /B ". $this->cmd, "r"));
         }
         else {
-            exec($this->cmd . " &");
+            exec($this->cmd_convert);
         }
     }
 }
