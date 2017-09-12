@@ -31,6 +31,11 @@ Make sure you have the following packages installed:
  * xml2 **(Version 1.0 or higher)**
  * jaod (Currently, a Github repository only: http://github.com/ropenscilabs/jaod. Install with devtools.)
  * rbace (Currently, a Github repository only: http://github.com/ropenscilabs/rbace. Install with devtools.)
+ 
+If you want to take snapshots of maps, you need to have the following packages installed:
+
+* phantomjs
+* ImageMagick
 
 ## Configuration
 
