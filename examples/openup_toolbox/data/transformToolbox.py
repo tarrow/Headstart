@@ -2,6 +2,7 @@
 import csv
 import math
 import random
+import copy
 
 def circle_coords(n, i):
     TWOPI = 2*3.14159
@@ -13,12 +14,18 @@ def normalize_source(source_object):
     normalized_object = []
     for entry in source_object:
         tools = entry['tools'].strip().split(',')
+        # print(tools)
         entry.pop('tools', None)
         for categories in tools:
+            new_entry = copy.deepcopy(entry)
             cat_and_subcat = categories.split(':')
-            entry['area'] = cat_and_subcat[0].strip()
-            entry['subarea'] = cat_and_subcat[1].strip()
-            normalized_object.append(entry)
+            new_entry['area'] = cat_and_subcat[0].strip()
+            new_entry['subarea'] = cat_and_subcat[1].strip()
+            # print(entry['area'], entry['subarea'])
+            normalized_object.append(new_entry)
+            # print(normalized_object[-1]['subarea'])
+    for entry in normalized_object:
+        print(entry['subarea'])
     return normalized_object
 
 if __name__ == "__main__":
