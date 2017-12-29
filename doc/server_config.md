@@ -29,6 +29,7 @@ Make sure you have the following packages installed:
   * stringi
   * stringdist
   * xml2 **(Version 1.0 or higher)**
+  * rorcid
   * jaod (Currently, a Github repository only: http://github.com/ropenscilabs/jaod. Install with  devtools.)
   * rbace (Currently, a Github repository only: http://github.com/ropenscilabs/rbace. Install with devtools.)
 * phantomjs 2.1+ (http://phantomjs.org/), if you want to use the snapshot feature
