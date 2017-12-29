@@ -28,7 +28,7 @@ switch (data_config.service) {
     case 'orcid':
         service_url = data_config.server_url + "services/searchORCID.php"
         service_name = "ORCID";
-        options = options_base;
+        options = options_orcid;
         break;
 }
 
