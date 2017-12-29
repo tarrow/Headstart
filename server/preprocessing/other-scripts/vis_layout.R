@@ -17,16 +17,19 @@ debug = FALSE
 # id, content, title, readers, published_in, year, authors, paper_abstract, subject
 
 vis_layout <- function(text, metadata, max_clusters=15, maxit=500, mindim=2, maxdim=2, lang="english",
-                       add_stop_words=NULL, testing=FALSE, taxonomy_separator=NULL, list_size=-1) {
+                       add_stop_words=NULL, testing=FALSE, taxonomy_separator=NULL, 
+                       deduplicate_list=FALSE, list_size=-1) {
 
   #If list_size is greater than -1 and smaller than the actual list size, deduplicate titles
-  if(list_size > -1) {
+  if(deduplicate_list == TRUE) {
     output = deduplicate_titles(metadata, list_size)
     text = subset(text, !(id %in% output))
     metadata = subset(metadata, !(id %in% output))
-
-    text = head(text, list_size)
-    metadata = head(metadata, list_size)
+    
+    if(list_size > -1) {
+      text = head(text, list_size)
+      metadata = head(metadata, list_size)
+    }
 
   }
 
@@ -50,7 +53,7 @@ vis_layout <- function(text, metadata, max_clusters=15, maxit=500, mindim=2, max
   normalized_matrix <- normalize_matrix(result$tdm_matrix);
 
   print("create clusters")
-  clusters <- create_clusters(normalized_matrix, max_clusters=max_clusters);
+  clusters <- create_clusters(normalized_matrix, max_clusters=15);
   named_clusters <- create_cluster_labels(clusters, metadata_full_subjects, weightingspec="ntn", top_n=3, stops=stops, taxonomy_separator)
   layout <- create_ordination(normalized_matrix, maxit=500, mindim=2, maxdim=2)
   output <- create_output(named_clusters, layout, metadata_full_subjects)
@@ -71,7 +74,10 @@ deduplicate_titles <- function(metadata, list_size) {
   metadata$title[index] <- paste(metadata$title[index], metadata$authors[index], sep=" ")
 
   num_items = length(metadata$id)
-  max_replacements = ifelse(num_items > list_size, num_items - list_size, -1)
+  max_replacements = num_items
+  if(list_size > -1) {
+    max_replacements = ifelse(num_items > list_size, num_items - list_size, -1)
+  }
 
   ids = metadata$id
   titles = metadata$title

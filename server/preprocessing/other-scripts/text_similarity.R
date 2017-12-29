@@ -18,6 +18,7 @@ source(paste("../other-scripts/vis_layout.R", sep=""))
 taxonomy_separator = NULL
 limit = 100
 list_size = -1
+deduplicate_list = FALSE
 switch(service, 
        plos={
          source("../other-scripts/rplos_fast.R")
@@ -31,10 +32,16 @@ switch(service,
        },
        base={
          source('../other-scripts/base.R')
+         deduplicate_list = TRUE
          limit = 120
          list_size = 100
          
        }, 
+       orcid={
+         source('../other-scripts/orcid.R')
+         deduplicate_list = TRUE
+         
+       },
       {
         source("../other-scripts/rplos_fast.R")
       }
@@ -61,6 +68,6 @@ input_data = get_papers(query, params, limit=limit)
 print("got the input")
 
 output_json = vis_layout(input_data$text, input_data$metadata, max_clusters=MAX_CLUSTERS, add_stop_words=ADDITIONAL_STOP_WORDS, 
-                         taxonomy_separator=taxonomy_separator, list_size = list_size)
+                         taxonomy_separator=taxonomy_separator, deduplicate_list=deduplicate_list, list_size=list_size)
 
 print(output_json)

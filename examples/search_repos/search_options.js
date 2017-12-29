@@ -252,6 +252,10 @@ var options_base = {
     ]
 }
 
+var options_orcid = {
+    dropdowns: []
+}
+
 var SearchOptions = {
     user_defined_date: false,
     init: function (tag, data) {
