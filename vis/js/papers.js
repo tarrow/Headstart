@@ -696,7 +696,7 @@ papers.onWindowResize = function() {
 
       $("#area_title>h2").css("font-size", canvas.calcTitleFontSize());
       $("#area_title>h2").hyphenate('en');
-      $("#area_title_object>body").dotdotdot({wrap:"letter"});
+      $("#area_title").dotdotdot({truncate:"letter"});
 
       d3.selectAll("g.paper")
         .attr("transform", (d) => {

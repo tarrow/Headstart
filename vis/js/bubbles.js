@@ -12,7 +12,7 @@ const bubbleTemplate = require('templates/map/bubble.handlebars');
 
 import 'hypher';
 import 'lib/en.js';
-import 'dotdotdot';
+import 'jquery.dotdotdot';
 
 export var BubblesFSM = function () {
     this.id = 0;
@@ -423,7 +423,7 @@ BubblesFSM.prototype = {
 
 
         $("#subdiscipline_title h4").html('<span id="area-bold">'+config.localization[config.language].area + ":</span> " + '<span id="area-not-bold">' + d.title + "</span>" );
-        $("#subdiscipline_title").dotdotdot();
+        $("#subdiscipline_title").dotdotdot({});
         $("#context").css("visibility", "hidden");
 
         d3.selectAll("div.paper_holder")

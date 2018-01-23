@@ -13,7 +13,7 @@ const common = {
     output: {
         path: path.resolve(__dirname, "dist"),
 		//dev: specify a full path including protocol, production: specify full path excluding protocol
-        publicPath: ".",
+        publicPath: "http://localhost/headstart_master/dist/",
         filename: 'headstart.js',
         libraryTarget: 'var',
         library: 'headstart'
@@ -21,7 +21,7 @@ const common = {
 
     module: {
         loaders: [{
-            test: require.resolve("jquery-dotdotdot/src/jquery.dotdotdot.min.js"),
+            test: require.resolve("jquery.dotdotdot/dist/jquery.dotdotdot.js"),
             loader: "imports?$=jquery,jQuery=jquery"
         }, {
             test: require.resolve("hypher/dist/jquery.hypher.js"),
@@ -76,7 +76,7 @@ const common = {
         alias: {
             //
             'handlebars': 'handlebars/dist/handlebars.js',
-            'dotdotdot': 'jquery-dotdotdot/src/jquery.dotdotdot.min.js',
+            'dotdotdot': 'jquery.dotdotdot/dist/jquery.dotdotdot.js',
             'hypher': 'hypher/dist/jquery.hypher.js',
 
             // paths

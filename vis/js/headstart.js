@@ -11,7 +11,7 @@ import { BrowserDetect, highlight } from "helpers";
 
 import 'hypher';
 import 'lib/en.js';
-import 'dotdotdot';
+import 'jquery.dotdotdot';
 
 export var HeadstartFSM = function(json_direct_data) {
   this.VERSION = 2.9;
