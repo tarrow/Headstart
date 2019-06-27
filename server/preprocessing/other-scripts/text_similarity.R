@@ -13,7 +13,13 @@ print(params_file)
 
 setwd(wd) #Don't forget to set your working directory
 
+# load libraries
+source('../renv/activate.R')
+renv::activate()
+renv::restore( lockfile = '../renv.lock')
+
 source('../other-scripts/utils.R')
+
 DEBUG = FALSE
 
 if (DEBUG==TRUE){
